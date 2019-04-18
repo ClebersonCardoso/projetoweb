@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Projeto</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+
+	<script type="text/javascript">
+		
+		function calcular(){
+                var valor = document.getElementById('valor').value;
+                valor = parseFloat(valor);
+                var nparcelas = document.getElementById('nparcelas').value;
+                nparcelas = parseFloat(nparcelas);
+
+                if (nparcelas > 5) {
+ 				    var porc = valor * 0.1;
+	                 resultado = (valor + porc) / nparcelas;
+	                
+                }else{
+                	resultado = valor / nparcelas;
+                }
+
+                var tabela = document.getElementById('table');
+            	
+            	console.log(resultado.toFixed(2));
+            		
+            	for (var i = 1; i <= nparcelas; i++) {
+          			tabela.innerHTML += ['<tr>','<td>',valor,'</td>','<td>',i,'°</td>','<td>',resultado,'</td>','</tr>'].join(" ");
+            	}
+ 
+            }
+
+            function sortear(min, max) {
+            	var valores = new Array();
+            	var proximo;
+            	for (var i = 0; i < 6; i++) {
+            	  proximo = valores.length;
+				  min = Math.ceil(min);
+				  max = Math.floor(max);
+
+				  valores[proximo] = Math.floor(Math.random() * (max - min + 1)) + min + "";
+
+				}
+
+				  document.getElementById("ns1").value = valores[0];
+				  document.getElementById("ns2").value = valores[1];
+				  document.getElementById("ns3").value = valores[2];
+				  document.getElementById("ns4").value = valores[3];
+				  document.getElementById("ns5").value = valores[4];
+				  document.getElementById("ns6").value = valores[5];
+
+			}
+
+			function calculadora(){
+				var v1 = document.getElementById('v1').value;
+				var v2 = document.getElementById('v2').value;
+				var operador = document.getElementById('operador').value;
+
+				if(operador == "somar"){
+					document.getElementById('result').value = parseFloat(v1) + parseFloat(v2);
+				}else if (operador == "subtrair"){
+					document.getElementById('result').value = parseFloat(v1) - parseFloat(v2);
+				}else if (operador == "multiplicar"){
+					document.getElementById('result').value = parseFloat(v1) * parseFloat(v2);
+				}else if (operador == "dividir"){
+					document.getElementById('result').value = parseFloat(v1) / parseFloat(v2);
+				}else if (operador == "porcentagem"){
+					document.getElementById('result').value = parseFloat(v1) * (parseInt(v2)/100);
+				}
+			}
+
+			function limparcalc(){
+				document.getElementById('v1').value="";
+				document.getElementById('v2').value="";
+				document.getElementById('result').value="";
+				document.getElementById('operador').value="0"; 
+			}
+
+			function limpartable(nparcelas){
+				document.getElementById('valor').value="";
+				document.getElementById('nparcelas').value="";
+
+				for (var i = 1; i <= nparcelas ; i++) {
+					document.getElementById("table").deleteRow(i);
+				}
+			}
+	</script>
+</head>
+	<body>
+												
+	<div class="container-float">
+													<!-- Inicio do Menu -->
+
+			<nav>
+			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+			  	 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+			    <a class="nav-item nav-link" id="nav-calculadora-tab" data-toggle="tab" href="#nav-calculadora" role="tab" aria-controls="nav-calculadora" aria-selected="false">Calculadora</a>
+			    <a class="nav-item nav-link" id="nav-parcelamento-tab" data-toggle="tab" href="#nav-parcelamento" role="tab" aria-controls="nav-parcelamento" aria-selected="false">Parcelamento</a>
+			    <a class="nav-item nav-link" id="nav-gerador-tab" data-toggle="tab" href="#nav-gerador" role="tab" aria-controls="nav-gerador" aria-selected="false">Gerador de N°</a>
+			  </div><br><br>
+			</nav>
+													<!-- Termino do Menu -->
+
+
+												<!-- Inicio divs conteúdos -->
+
+
+			<div class="tab-content" id="nav-tabContent">
+				
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"></div>
+
+												<!-- Inicio div Calculadora -->
+
+			  <div class="tab-pane fade" id="nav-calculadora" role="tabpanel" aria-labelledby="nav-calculadora-tab">
+			  	<div class="calc" id="calculadora" align="center">
+		    		<input type="text" id="v1" class="inputtextcalc" placeholder="Insira..."><br><br><br>
+			    		<div class="select">
+				    		<select id="operador" class="oper">
+				    			<option value="0"selected disabled >Selecione a operação</option>
+				    			<option value="somar">Somar</option>
+				    			<option value="subtrair">Subtrair</option>
+				    			<option value="multiplicar">Multiplicar</option>
+				    			<option value="dividir">Dividir</option>
+				    			<option value="porcentagem">Porcentagem</option>
+				    		</select><br><br><br>
+			    		</div>
+		    		<input type="text" id="v2" class="inputtextcalc" placeholder="Insira..."><br><br><br>
+		    		<button onclick="calculadora()" class="btn btn-outline-success">Calcular</button>
+		    		<button onclick="limparcalc()" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
+		    		<input type="text" id="result" placeholder="Resultado" class="inputtextcalc" disabled>
+	    		</div>
+			  </div>
+			  							
+												<!-- Fim div Calculadora -->
+
+												<!-- Inicio div Parcelamento -->	
+
+			  <div class="tab-pane fade" id="nav-parcelamento" role="tabpanel" aria-labelledby="nav-parcelamento-tab">
+			  	<div class="parcelamento" id="parcelamento" align="center">
+	     
+	                <input type="text" id="valor" placeholder="Valor" class="inputtext"><br><br>
+	                <input type="text" id="nparcelas" placeholder="Parcelas" class="inputtext"><br><br>
+	                <button onclick="calcular()" class="btn btn-outline-success">Calcular</button>
+	                <button onclick="limpartable('nparcelas')" class="btn btn-outline-danger">Limpar</button><br><br><br>
+				
+				<div class="col-4">	 
+	            	<table id="table" class="table" align="center">
+		            	<thead class="thead-light">	
+		            		<tr>
+		            			<th scope="col">Valor a pagar</th>
+		            			<th scope="col">Parcelas</th>
+		            			<th scope="col">Valor de cada parcela</th>
+		            		</tr>
+		            	</thead>
+	            	</table>
+	            </div>	
+	    		</div>
+			  </div>
+			  									<!-- Fim div Parcelamento -->
+
+			  								<!-- Inicio div Gerador de números -->
+
+			  <div class="tab-pane fade" id="nav-gerador" role="tabpanel" aria-labelledby="nav-gerador-tab">
+			  	<div class="gerador" id="gerador" align="center">
+		    		<center>Sortear 6 números para a Mega-Sena</center><br>
+		    		<button onclick="sortear(1, 60)" class="btn btn-outline-success">Sortear</button><br>
+		    		<table class="tablesorteado">
+		    			<tr>
+					    	<th><input type="text" id="ns1" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					    	<th><input type="text" id="ns2" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					   		<th><input type="text" id="ns3" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					   		<th><input type="text" id="ns4" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					   		<th><input type="text" id="ns5" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					   		<th><input type="text" id="ns6" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+		    			</tr>
+		    		</table>
+	    		</div>
+			  </div>
+			  								<!-- Fim div Gerador de números -->
+			</div>
+
+												<!-- Fim div dos conteúdos -->
+	</div>
+	</body>
+</html>
