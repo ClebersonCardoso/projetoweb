@@ -7,9 +7,41 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="crossorigin="anonymou"></script>
 	
 
 	<script type="text/javascript">
+
+		$(document).ready(function(){
+			 
+			 // Mudando a cor do menu
+			
+			$('nav').children('div').children('a').css("color", "#272727");
+
+			// Função referente ao botão calcular da calculadora	
+			$('#calcular').click(function(){
+				
+				var valor1 = $('#v1').val();
+				var valor2 = $('#v2').val();
+				var oper =	$('#operador').val();
+
+				if (oper == "%"){
+					var resultado = parseFloat(valor1) * (parseInt(valor2)/100);
+				}else{
+					var operacao = valor1 += oper += valor2;
+					var resultado = eval(operacao);
+				}
+				
+				$('#result').val(resultado);
+
+				$('#limparcalculadora')
+
+			});
+
+
+
+
+		});
 		
 		function calcular(){
                 var valor = document.getElementById('valor').value;
@@ -56,24 +88,6 @@
 
 			}
 
-			function calculadora(){
-				var v1 = document.getElementById('v1').value;
-				var v2 = document.getElementById('v2').value;
-				var operador = document.getElementById('operador').value;
-
-				if(operador == "somar"){
-					document.getElementById('result').value = parseFloat(v1) + parseFloat(v2);
-				}else if (operador == "subtrair"){
-					document.getElementById('result').value = parseFloat(v1) - parseFloat(v2);
-				}else if (operador == "multiplicar"){
-					document.getElementById('result').value = parseFloat(v1) * parseFloat(v2);
-				}else if (operador == "dividir"){
-					document.getElementById('result').value = parseFloat(v1) / parseFloat(v2);
-				}else if (operador == "porcentagem"){
-					document.getElementById('result').value = parseFloat(v1) * (parseInt(v2)/100);
-				}
-			}
-
 			function limparcalc(){
 				document.getElementById('v1').value="";
 				document.getElementById('v2').value="";
@@ -85,10 +99,8 @@
 				document.getElementById('valor').value="";
 				document.getElementById('nparcelas').value="";
 
-				for (var i = 1; i <= nparcelas ; i++) {
-					document.getElementById("table").deleteRow(i);
-				}
 			}
+
 	</script>
 </head>
 	<body>
@@ -112,7 +124,9 @@
 
 			<div class="tab-content" id="nav-tabContent">
 				
-				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"></div>
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					<p align="center">Navegue pelas opções do menu</p>
+				</div>
 
 												<!-- Inicio div Calculadora -->
 
@@ -122,16 +136,16 @@
 			    		<div class="select">
 				    		<select id="operador" class="oper">
 				    			<option value="0"selected disabled >Selecione a operação</option>
-				    			<option value="somar">Somar</option>
-				    			<option value="subtrair">Subtrair</option>
-				    			<option value="multiplicar">Multiplicar</option>
-				    			<option value="dividir">Dividir</option>
-				    			<option value="porcentagem">Porcentagem</option>
+				    			<option value="+">Somar</option>
+				    			<option value="-">Subtrair</option>
+				    			<option value="*">Multiplicar</option>
+				    			<option value="/">Dividir</option>
+				    			<option value="%">Porcentagem</option>
 				    		</select><br><br><br>
 			    		</div>
 		    		<input type="text" id="v2" class="inputtextcalc" placeholder="Insira..."><br><br><br>
-		    		<button onclick="calculadora()" class="btn btn-outline-success">Calcular</button>
-		    		<button onclick="limparcalc()" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
+		    		<button id="calcular" class="btn btn-outline-success">Calcular</button>
+		    		<button id="limparcalculadora" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
 		    		<input type="text" id="result" placeholder="Resultado" class="inputtextcalc" disabled>
 	    		</div>
 			  </div>
@@ -145,7 +159,7 @@
 	     
 	                <input type="text" id="valor" placeholder="Valor" class="inputtext"><br><br>
 	                <input type="text" id="nparcelas" placeholder="Parcelas" class="inputtext"><br><br>
-	                <button onclick="calcular()" class="btn btn-outline-success">Calcular</button>
+	                <button onclick="calcular()" class="btn btn-outline-success" id="botaocalc">Calcular</button>
 	                <button onclick="limpartable('nparcelas')" class="btn btn-outline-danger">Limpar</button><br><br><br>
 				
 				<div class="col-4">	 
