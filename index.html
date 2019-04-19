@@ -39,7 +39,7 @@
 			});
 
 			// Função que limpa os campos da calculadora
-			$('#limparcalculadora').click(function(){
+			$('#limparCalculadora').click(function(){
 					$('#v1').val("");
 					$('#v2').val("");
 					$('#operador').val("0")
@@ -47,89 +47,86 @@
 
 
 			// Função responsável pelo parcelamento
-			$('#parcelamento').click(function(){
+			$('#parcelar').click(function(){
 				var qnt = $('#valor').val();
 				var parcelas = $('#nparcelas').val();
+				var resultado = 0;
+				var porc = 0;
+				var table = $('td');
+				table.remove();
 
 				if (parcelas > 5){
-					var porc = valor * 0.1;
-					var resultado = (qnt+porc) / parcelas;
+					porc = qnt * 0.1;
+					resultado = (parseFloat(qnt) + porc) / parseFloat(parcelas);
 				}else{
-					 var resultado = qnt / parcelas;
+					resultado = parseFloat(qnt) / parseFloat(parcelas);
 				}
 
+				// Arrendondando o resultado para duas casas decimais
+				resultado = resultado.toFixed(2);
 
 				for (var i = 1; i <= parcelas; i++){
-					var novaLinha = $("<tr>");
-					var tableValor = $("<th>").attr("data-column","qnt");
-					var tableParcela = $("<th>").attr("data-column","i");
-					var tableValorParcela = $("<th>").attr("data-column","resultado");
 
+					var novaLinha = $("<tr>");
+					var tableValor = '<td><input type="text" value="'+qnt+'" style="text-align:center" size="10" disabled></td>';
+					var tableParcela = '<td><input type="text" value="'+i+'°" style="text-align:center"	size="10" disabled></td>';
+					var tableResultado = '<td><input type="text" value="'+resultado+'" style="text-align:center" size="10" disabled></td>';
 
 					novaLinha.append(tableValor);
 					novaLinha.append(tableParcela);
-					novaLinha.append(tableValorParcela);
+					novaLinha.append(tableResultado);
 
-					$('table').append(novaLinha);
+
+					$('#tableparcela').append(novaLinha);
+
+
 				}
-
+				
 			});
 
+			// Função que limpa os campos do parcelamento
+			$('#limparParcelamento').click(function(){
+				$('#valor').val("");
+				$('#nparcelas').val("")
 
+				var table = $('td');
 
+				table.remove();
+			});
 
-		});
-		
-		// function calcular(){
-  //               var valor = document.getElementById('valor').value;
-  //               valor = parseFloat(valor);
-  //               var nparcelas = document.getElementById('nparcelas').value;
-  //               nparcelas = parseFloat(nparcelas);
-
-  //               if (nparcelas > 5) {
- 	// 			    var porc = valor * 0.1;
-	 //                 resultado = (valor + porc) / nparcelas;
-	                
-  //               }else{
-  //               	resultado = valor / nparcelas;
-  //               }
-
-  //               var tabela = document.getElementById('table');
-            	
-  //           	console.log(resultado.toFixed(2));
-            		
-  //           	for (var i = 1; i <= nparcelas; i++) {
-  //         			tabela.innerHTML += ['<tr>','<td>',valor,'</td>','<td>',i,'°</td>','<td>',resultado,'</td>','</tr>'].join(" ");
-  //           	}
- 
-  //           }
-
-            function sortear(min, max) {
-            	var valores = new Array();
+			// Função responsável pelo sorteio
+			$('#gerarNumeros').click(function(){
+				var valores = new Array();
             	var proximo;
-            	for (var i = 0; i < 6; i++) {
+            	for (var i = 0; i <= 6; i++) {
             	  proximo = valores.length;
-				  min = Math.ceil(min);
-				  max = Math.floor(max);
+				  min = Math.ceil(1);
+				  max = Math.floor(60);
 
 				  valores[proximo] = Math.floor(Math.random() * (max - min + 1)) + min + "";
 
+				  // Não permitir valores iguais
+				  for (var j = 0; j <= 6; j++) {
+						if (j!=i && valores[j] == valores[i]){
+							valores[i] = Math.floor(Math.random() * (max - min + 1)) + min + "";
+						}
+					}
+
+					// Colocando os números sorteados no input
+					$("#ns"+i+"").val(valores[i]);
 				}
+			});
 
-				  document.getElementById("ns1").value = valores[0];
-				  document.getElementById("ns2").value = valores[1];
-				  document.getElementById("ns3").value = valores[2];
-				  document.getElementById("ns4").value = valores[3];
-				  document.getElementById("ns5").value = valores[4];
-				  document.getElementById("ns6").value = valores[5];
+			// Limpando as inputs com os números sorteados
+			$('#limparNumeros').click(function(){
+				for (var i = 0; i <= 6; i++) {
+					$("#ns"+i+"").val("_ _");
+				}
+			
+			});
 
-			}
 
-			function limpartable(nparcelas){
-				document.getElementById('valor').value="";
-				document.getElementById('nparcelas').value="";
-
-			}
+		});
 
 	</script>
 </head>
@@ -173,10 +170,10 @@
 				    			<option value="%">Porcentagem</option>
 				    		</select><br><br><br>
 			    		</div>
-		    		<input type="text" id="v2" class="inputtextcalc" placeholder="Insira..."><br><br><br>
+		    		<input type="text" id="v2" placeholder="Insira..."><br><br><br>
 		    		<button id="calcular" class="btn btn-outline-success">Calcular</button>
-		    		<button id="limparcalculadora" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
-		    		<input type="text" id="result" placeholder="Resultado" class="inputtextcalc" disabled>
+		    		<button id="limparCalculadora" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
+		    		<input type="text" id="result" placeholder="Resultado" disabled>
 	    		</div>
 			  </div>
 			  							
@@ -187,18 +184,18 @@
 			  <div class="tab-pane fade" id="nav-parcelamento" role="tabpanel" aria-labelledby="nav-parcelamento-tab">
 			  	<div class="parcelamento" id="parcelamento" align="center">
 	     
-	                <input type="text" id="valor" placeholder="Valor" class="inputtext"><br><br>
-	                <input type="text" id="nparcelas" placeholder="Parcelas" class="inputtext"><br><br>
-	                <button class="btn btn-outline-success" id="parcelamento">Calcular</button>
-	                <button onclick="limpartable('nparcelas')" class="btn btn-outline-danger">Limpar</button><br><br><br>
+	                <input type="text" id="valor" placeholder="Valor"><br><br>
+	                <input type="text" id="nparcelas" placeholder="Parcelas"><br><br>
+	                <button class="btn btn-outline-success" id="parcelar">Parcelar</button>
+	                <button class="btn btn-outline-danger" id="limparParcelamento">Limpar</button><br><br><br>
 				
-				<div class="col-4">	 
-	            	<table id="table" class="table" align="center">
-		            	<thead class="thead-light">	
+				<div class="col-4" id="divtabela" color="white">	 
+	            	<table id="tableparcela" class="table" style="text-align: center;">
+		            	<thead class="thead-dark">	
 		            		<tr>
-		            			<th scope="col">Valor a pagar</th>
+		            			<th scope="col">Total a pagar</th>
 		            			<th scope="col">Parcelas</th>
-		            			<th scope="col">Valor de cada parcela</th>
+		            			<th scope="col">Valor da parcela</th>
 		            		</tr>
 		            	</thead>
 	            	</table>
@@ -211,16 +208,17 @@
 
 			  <div class="tab-pane fade" id="nav-gerador" role="tabpanel" aria-labelledby="nav-gerador-tab">
 			  	<div class="gerador" id="gerador" align="center">
-		    		<center>Sortear 6 números para a Mega-Sena</center><br>
-		    		<button onclick="sortear(1, 60)" class="btn btn-outline-success">Sortear</button><br>
-		    		<table class="tablesorteado">
+		    		<center>Números para a Mega-Sena</center><br>
+		    		<button class="btn btn-outline-success" id="gerarNumeros">Sortear</button>
+		    		<button class="btn btn-outline-danger" id="limparNumeros">Limpar</button><br><br><br>
+		    		<table>
 		    			<tr>
-					    	<th><input type="text" id="ns1" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
-					    	<th><input type="text" id="ns2" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
-					   		<th><input type="text" id="ns3" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
-					   		<th><input type="text" id="ns4" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
-					   		<th><input type="text" id="ns5" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
-					   		<th><input type="text" id="ns6" size="4" value="_ _" class="Nsorteado" readonly="true" style="text-align: center;"></th>
+					    	<th><input type="text" id="ns1" size="4" value="_ _" disabled></th>
+					    	<th><input type="text" id="ns2" size="4" value="_ _" disabled></th>
+					   		<th><input type="text" id="ns3" size="4" value="_ _" disabled></th>
+					   		<th><input type="text" id="ns4" size="4" value="_ _" disabled></th>
+					   		<th><input type="text" id="ns5" size="4" value="_ _" disabled></th>
+					   		<th><input type="text" id="ns6" size="4" value="_ _" disabled></th>
 		    			</tr>
 		    		</table>
 	    		</div>
