@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Projeto</title>
+	<title>Projeto - Cleberson Cardoso</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -65,6 +65,7 @@
 				// Arrendondando o resultado para duas casas decimais
 				resultado = resultado.toFixed(2);
 
+				// Gerando o a tabela do parcelamento
 				for (var i = 1; i <= parcelas; i++){
 
 					var novaLinha = $("<tr>");
@@ -84,7 +85,7 @@
 				
 			});
 
-			// Função que limpa os campos do parcelamento
+			// Função que limpa os campos e a tabela do parcelamento
 			$('#limparParcelamento').click(function(){
 				$('#valor').val("");
 				$('#nparcelas').val("")
@@ -125,6 +126,44 @@
 			
 			});
 
+			// Alertas dos botões Ajuda
+			var botaofechar = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>')
+
+			var calculadoraAjuda = $('<div>',{
+				class:'alert alert-primary alert-dismissible fade show col-5',
+				role:'alert',
+				text:'Insira os números, escolha a operação, após isso clique em Calcular',
+				id:'divAjudaCalculadora'
+			});
+			$('#botaoCalculadoraAjuda').click(function(){
+				$('#nav-calculadora').append(calculadoraAjuda);
+				$('#divAjudaCalculadora').append(botaofechar);
+				$('#divAjudaCalculadora').fadeOut(12000);	
+			});
+
+			var parcelamentoAjuda = $('<div>',{
+				class:'alert alert-primary alert-dismissible fade show col-6',
+				role:'alert',
+				text:'Insira o valor a ser pago e a quantidade de parcelas, após isso clique em Parcelar',
+				id:'divAjudaParcelamento'
+			});
+			$('#botaoParcelamentoAjuda').click(function(){
+				$('#alertAjuda').append(parcelamentoAjuda);
+				$('#divAjudaParcelamento').append(botaofechar);
+				$('#divAjudaParcelamento').fadeOut(12000);	
+			});
+
+			var geradorAjuda = $('<div>',{
+				class:'alert alert-primary alert-dismissible fade show col-5',
+				role:'alert',
+				text:'Clique em Sortear e veja possíveis números para a Mega-Sena',
+				id:'divAjudaGerador'
+			});
+			$('#botaoGeradorAjuda').click(function(){
+				$('#nav-gerador').append(geradorAjuda);
+				$('#divAjudaGerador').append(botaofechar);
+				$('#divAjudaGerador').fadeIn(12000);	
+			});
 
 		});
 
@@ -140,10 +179,10 @@
 			  	 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
 			    <a class="nav-item nav-link" id="nav-calculadora-tab" data-toggle="tab" href="#nav-calculadora" role="tab" aria-controls="nav-calculadora" aria-selected="false">Calculadora</a>
 			    <a class="nav-item nav-link" id="nav-parcelamento-tab" data-toggle="tab" href="#nav-parcelamento" role="tab" aria-controls="nav-parcelamento" aria-selected="false">Parcelamento</a>
-			    <a class="nav-item nav-link" id="nav-gerador-tab" data-toggle="tab" href="#nav-gerador" role="tab" aria-controls="nav-gerador" aria-selected="false">Gerador de N°</a>
+			    <a class="nav-item nav-link" id="nav-gerador-tab" data-toggle="tab" href="#nav-gerador" role="tab" aria-controls="nav-gerador" aria-selected="false">Mega-Sena</a>
 			  </div><br><br>
 			</nav>
-													<!-- Termino do Menu -->
+													<!-- Fim do Menu -->
 
 
 												<!-- Inicio divs conteúdos -->
@@ -151,14 +190,18 @@
 
 			<div class="tab-content" id="nav-tabContent">
 				
-				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-					<p align="center">Navegue pelas opções do menu</p>
+				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" align="center">
+					<p>Navegue pelas opções do menu</p>
+					
 				</div>
+												<!-- Fim div Calculadora -->
+
+
 
 												<!-- Inicio div Calculadora -->
 
-			  <div class="tab-pane fade" id="nav-calculadora" role="tabpanel" aria-labelledby="nav-calculadora-tab">
-			  	<div class="calc" id="calculadora" align="center">
+			  <div class="tab-pane fade" id="nav-calculadora" role="tabpanel" aria-labelledby="nav-calculadora-tab" align="center">
+			  	<div class="calc" id="calculadora">
 		    		<input type="text" id="v1" placeholder="Insira..." ><br><br><br>
 			    		<div class="select">
 				    		<select id="operador" class="oper">
@@ -172,8 +215,9 @@
 			    		</div>
 		    		<input type="text" id="v2" placeholder="Insira..."><br><br><br>
 		    		<button id="calcular" class="btn btn-outline-success">Calcular</button>
-		    		<button id="limparCalculadora" class="btn btn-outline-danger">Limpar</button><br><br><br><br>
-		    		<input type="text" id="result" placeholder="Resultado" disabled>
+		    		<button id="limparCalculadora" class="btn btn-outline-danger">Limpar</button>
+		    		<button type="button" class="btn btn-outline-info" id="botaoCalculadoraAjuda">Ajuda</button><br><br><br><br>
+		    		<input type="text" id="result" placeholder="Resultado" disabled><br><br><br>
 	    		</div>
 			  </div>
 			  							
@@ -181,15 +225,17 @@
 
 												<!-- Inicio div Parcelamento -->	
 
-			  <div class="tab-pane fade" id="nav-parcelamento" role="tabpanel" aria-labelledby="nav-parcelamento-tab">
-			  	<div class="parcelamento" id="parcelamento" align="center">
+			  <div class="tab-pane fade" id="nav-parcelamento" role="tabpanel" aria-labelledby="nav-parcelamento-tab" align="center">
+			  	<div class="parcelamento" id="parcelamento">
 	     
 	                <input type="text" id="valor" placeholder="Valor"><br><br>
 	                <input type="text" id="nparcelas" placeholder="Parcelas"><br><br>
 	                <button class="btn btn-outline-success" id="parcelar">Parcelar</button>
-	                <button class="btn btn-outline-danger" id="limparParcelamento">Limpar</button><br><br><br>
+	                <button class="btn btn-outline-danger" id="limparParcelamento">Limpar</button>
+	                <button type="button" class="btn btn-outline-info" id="botaoParcelamentoAjuda">Ajuda</button><br><br><br>
+	                <div id="alertAjuda"></div>
 				
-				<div class="col-4" id="divtabela" color="white">	 
+				<div class="col-4" id="divtabela">	 
 	            	<table id="tableparcela" class="table" style="text-align: center;">
 		            	<thead class="thead-dark">	
 		            		<tr>
@@ -206,11 +252,12 @@
 
 			  								<!-- Inicio div Gerador de números -->
 
-			  <div class="tab-pane fade" id="nav-gerador" role="tabpanel" aria-labelledby="nav-gerador-tab">
-			  	<div class="gerador" id="gerador" align="center">
+			  <div class="tab-pane fade" id="nav-gerador" role="tabpanel" aria-labelledby="nav-gerador-tab" align="center">
+			  	<div class="gerador" id="gerador">
 		    		<center>Números para a Mega-Sena</center><br>
 		    		<button class="btn btn-outline-success" id="gerarNumeros">Sortear</button>
-		    		<button class="btn btn-outline-danger" id="limparNumeros">Limpar</button><br><br><br>
+		    		<button class="btn btn-outline-danger" id="limparNumeros">Limpar</button>
+		    		<button type="button" class="btn btn-outline-info" id="botaoGeradorAjuda">Ajuda</button><br><br><br>
 		    		<table>
 		    			<tr>
 					    	<th><input type="text" id="ns1" size="4" value="_ _" disabled></th>
@@ -220,7 +267,7 @@
 					   		<th><input type="text" id="ns5" size="4" value="_ _" disabled></th>
 					   		<th><input type="text" id="ns6" size="4" value="_ _" disabled></th>
 		    			</tr>
-		    		</table>
+		    		</table><br><br><br>
 	    		</div>
 			  </div>
 			  								<!-- Fim div Gerador de números -->
