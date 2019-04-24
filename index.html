@@ -65,7 +65,7 @@
 				// Arrendondando o resultado para duas casas decimais
 				resultado = resultado.toFixed(2);
 
-				// Gerando o a tabela do parcelamento
+				// Gerando a tabela do parcelamento
 				for (var i = 1; i <= parcelas; i++){
 
 					var novaLinha = $("<tr>");
@@ -126,6 +126,11 @@
 			
 			});
 
+			// Visualizar e Ocultar a tabela
+			$('#esconderTable').click(function(){
+				$('#divtabela').slideToggle();
+			});
+
 			// Alertas dos botões Ajuda
 			var botaofechar = $('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>')
 
@@ -138,6 +143,7 @@
 			$('#botaoCalculadoraAjuda').click(function(){
 				$('#nav-calculadora').append(calculadoraAjuda);
 				$('#divAjudaCalculadora').append(botaofechar);
+				$('#divAjudaCalculadora').fadeIn(80000);
 				$('#divAjudaCalculadora').fadeOut(12000);	
 			});
 
@@ -150,6 +156,7 @@
 			$('#botaoParcelamentoAjuda').click(function(){
 				$('#alertAjuda').append(parcelamentoAjuda);
 				$('#divAjudaParcelamento').append(botaofechar);
+				$('#divAjudaParcelamento').fadeIn(80000);
 				$('#divAjudaParcelamento').fadeOut(12000);	
 			});
 
@@ -162,7 +169,8 @@
 			$('#botaoGeradorAjuda').click(function(){
 				$('#nav-gerador').append(geradorAjuda);
 				$('#divAjudaGerador').append(botaofechar);
-				$('#divAjudaGerador').fadeIn(12000);	
+				$('#divAjudaGerador').fadeIn(80000);
+				$('#divAjudaGerador').fadeOut(12000);	
 			});
 
 		});
@@ -233,6 +241,7 @@
 	                <button class="btn btn-outline-success" id="parcelar">Parcelar</button>
 	                <button class="btn btn-outline-danger" id="limparParcelamento">Limpar</button>
 	                <button type="button" class="btn btn-outline-info" id="botaoParcelamentoAjuda">Ajuda</button><br><br><br>
+	                <button type="button" class="btn btn-outline-dark" id="esconderTable">Ocultar</button><br><br>
 	                <div id="alertAjuda"></div>
 				
 				<div class="col-4" id="divtabela">	 
