@@ -69,9 +69,9 @@
 				for (var i = 1; i <= parcelas; i++){
 
 					var novaLinha = $("<tr>");
-					var tableValor = '<td><input type="text" value="'+qnt+'" style="text-align:center" size="10" disabled></td>';
-					var tableParcela = '<td><input type="text" value="'+i+'°" style="text-align:center"	size="10" disabled></td>';
-					var tableResultado = '<td><input type="text" value="'+resultado+'" style="text-align:center" size="10" disabled></td>';
+					var tableValor = '<td>'+qnt+'</td>';
+					var tableParcela = '<td>'+i+'°</td>';
+					var tableResultado = '<td>'+resultado+'</td>';
 
 					novaLinha.append(tableValor);
 					novaLinha.append(tableParcela);
@@ -184,10 +184,10 @@
 
 			<nav>
 			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-			  	 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><img src="https://img.icons8.com/material-rounded/24/000000/home-page.png"></a>
-			    <a class="nav-item nav-link" id="nav-calculadora-tab" data-toggle="tab" href="#nav-calculadora" role="tab" aria-controls="nav-calculadora" aria-selected="false"><img src="https://img.icons8.com/material-outlined/24/000000/calculator.png"></a>
-			    <a class="nav-item nav-link" id="nav-parcelamento-tab" data-toggle="tab" href="#nav-parcelamento" role="tab" aria-controls="nav-parcelamento" aria-selected="false"><img src="https://img.icons8.com/material-rounded/24/000000/pay-date.png"></a>
-			    <a class="nav-item nav-link" id="nav-gerador-tab" data-toggle="tab" href="#nav-gerador" role="tab" aria-controls="nav-gerador" aria-selected="false"><img src="https://img.icons8.com/android/24/000000/clover.png"></a>
+			  	 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" title="Home"><img src="https://img.icons8.com/material/24/000000/real-estate.png"></a>
+			    <a class="nav-item nav-link" id="nav-calculadora-tab" data-toggle="tab" href="#nav-calculadora" role="tab" aria-controls="nav-calculadora" aria-selected="false" title="Calculadora"><img src="https://img.icons8.com/ios-glyphs/30/000000/math.png" title="Calculadora"></a>
+			    <a class="nav-item nav-link" id="nav-parcelamento-tab" data-toggle="tab" href="#nav-parcelamento" role="tab" aria-controls="nav-parcelamento" aria-selected="false" title="Parcelamento"><img src="https://img.icons8.com/material-rounded/24/000000/pay-date.png" ></a>
+			    <a class="nav-item nav-link" id="nav-gerador-tab" data-toggle="tab" href="#nav-gerador" role="tab" aria-controls="nav-gerador" aria-selected="false" title="Gerar Números Mega-Sena"><img src="https://img.icons8.com/ios-glyphs/30/000000/add-ticket.png"></a>
 			  </div><br><br>
 			</nav>
 													<!-- Fim do Menu -->
@@ -200,7 +200,7 @@
 				
 				<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" align="center">
 					<p>Navegue pelas opções do menu</p>
-					
+			
 				</div>
 												<!-- Fim div Calculadora -->
 
@@ -210,22 +210,31 @@
 
 			  <div class="tab-pane fade" id="nav-calculadora" role="tabpanel" aria-labelledby="nav-calculadora-tab" align="center">
 			  	<div class="calc" id="calculadora">
-		    		<input type="text" id="v1" placeholder="Insira..." ><br><br><br>
+			  		<div class="col-2">
+		    		<input id="v1" type="text" class="form-control" placeholder="Insira...">
+		    		</div><br>
+		    		<div class="col-2">
 			    		<div class="select">
-				    		<select id="operador" class="oper">
+				    		<select id="operador" class="custom-select mr-sm-2">
 				    			<option value="0"selected disabled >Selecione a operação</option>
 				    			<option value="+">Somar</option>
 				    			<option value="-">Subtrair</option>
 				    			<option value="*">Multiplicar</option>
 				    			<option value="/">Dividir</option>
 				    			<option value="%">Porcentagem</option>
-				    		</select><br><br><br>
+				    		</select><br><br>
 			    		</div>
-		    		<input type="text" id="v2" placeholder="Insira..."><br><br><br>
-		    		<button id="calcular" class="btn btn-outline-success">Calcular</button>
+			    	</div>
+		    		<div class="col-2">
+		    		<input id="v2" type="text" class="form-control" placeholder="Insira..">
+		    		</div><br>
+		    		<button id="calcular" class="btn btn-outline-success" type="submit">Calcular</button>
 		    		<button id="limparCalculadora" class="btn btn-outline-danger">Limpar</button>
-		    		<button type="button" class="btn btn-outline-info" id="botaoCalculadoraAjuda">Ajuda</button><br><br><br><br>
-		    		<input type="text" id="result" placeholder="Resultado" disabled><br><br><br>
+		    		<button type="button" class="btn btn-outline-info" id="botaoCalculadoraAjuda">Ajuda</button><br><br><br>
+		    		<div class="col-2">
+		    		<input id="result" class="form-control" type="text" placeholder="Resultado"readonly>
+		    		</div>
+		    		<br><br><br>
 	    		</div>
 			  </div>
 			  							
@@ -236,14 +245,17 @@
 			  <div class="tab-pane fade" id="nav-parcelamento" role="tabpanel" aria-labelledby="nav-parcelamento-tab" align="center">
 			  	<div class="parcelamento" id="parcelamento">
 	     
-	                <input type="text" id="valor" placeholder="Valor"><br><br>
-	                <input type="text" id="nparcelas" placeholder="Parcelas"><br><br>
+	                <div class="col-2">
+		    		<input id="valor" class="form-control" type="text" placeholder="Valor">
+		    		</div><br><br>
+	                <div class="col-2">
+		    		<input id="nparcelas" class="form-control" type="text" placeholder="Parcelas">
+		    		</div><br><br>
 	                <button class="btn btn-outline-success" id="parcelar">Parcelar</button>
 	                <button class="btn btn-outline-danger" id="limparParcelamento">Limpar</button>
-	                <button type="button" class="btn btn-outline-info" id="botaoParcelamentoAjuda">Ajuda</button><br><br><br>
-	                <button type="button" class="btn btn-outline-dark" id="esconderTable">Ocultar</button><br><br>
-	                <div id="alertAjuda"></div>
-				
+	                <button type="button" class="btn btn-outline-info" id="botaoParcelamentoAjuda">Ajuda</button><br><br>
+	                <div id="alertAjuda"></div><br>
+	                <button type="button" class="btn" id="esconderTable" title="Escoder/Visualizar Tabela"><img src="https://img.icons8.com/ios-glyphs/30/000000/hide.png"></button><br><br>
 				<div class="col-4" id="divtabela">	 
 	            	<table id="tableparcela" class="table" style="text-align: center;">
 		            	<thead class="thead-dark">	
@@ -267,16 +279,19 @@
 		    		<button class="btn btn-outline-success" id="gerarNumeros">Sortear</button>
 		    		<button class="btn btn-outline-danger" id="limparNumeros">Limpar</button>
 		    		<button type="button" class="btn btn-outline-info" id="botaoGeradorAjuda">Ajuda</button><br><br><br>
-		    		<table>
-		    			<tr>
-					    	<th><input type="text" id="ns1" size="4" value="_ _" disabled></th>
-					    	<th><input type="text" id="ns2" size="4" value="_ _" disabled></th>
-					   		<th><input type="text" id="ns3" size="4" value="_ _" disabled></th>
-					   		<th><input type="text" id="ns4" size="4" value="_ _" disabled></th>
-					   		<th><input type="text" id="ns5" size="4" value="_ _" disabled></th>
-					   		<th><input type="text" id="ns6" size="4" value="_ _" disabled></th>
-		    			</tr>
-		    		</table><br><br><br>
+		    		<div class="col-4 ">
+			    		<table>
+			    			<tr>
+						    	<th><input id="ns1" class="form-control" type="text" value="_ _" disabled></th>
+						    	<th><input id="ns2" class="form-control" type="text" value="_ _" disabled></th>
+						   		<th><input id="ns3" class="form-control" type="text" value="_ _" disabled></th>
+						   		<th><input id="ns4" class="form-control" type="text" value="_ _" disabled></th>
+						   		<th><input id="ns5" class="form-control" type="text" value="_ _" disabled></th>
+						   		<th><input id="ns6" class="form-control" type="text" value="_ _" disabled></th>
+			    			</tr>
+			    		</table>
+		    		</div>
+		    		<br><br><br>
 	    		</div>
 			  </div>
 			  								<!-- Fim div Gerador de números -->
